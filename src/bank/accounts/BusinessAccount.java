@@ -1,12 +1,12 @@
-package bankclasses.Accounts;
+package bank.accounts;
 
-import bankclasses.Transaction;
+import bank.Abstract.AbstractAccount;
+import bank.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Random;
 
-public class BusinessAccount extends Account {
+public class BusinessAccount extends AbstractAccount {
     private String businessName;
     private String businessTaxId;
 

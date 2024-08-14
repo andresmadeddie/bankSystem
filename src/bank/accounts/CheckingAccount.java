@@ -1,11 +1,12 @@
-package bankclasses.Accounts;
+package bank.accounts;
 
-import bankclasses.Transaction;
+import bank.Abstract.AbstractAccount;
+import bank.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class CheckingAccount extends Account {
+public class CheckingAccount extends AbstractAccount {
     private double overdraftLimit;
 
     public CheckingAccount(String accountNumber, double balance, double overdraftLimit) {

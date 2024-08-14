@@ -1,4 +1,4 @@
-package bankclasses;
+package bank;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -16,9 +16,10 @@ public class Transaction {
     }
 
     // Generate a new unique transaction ID
-    private static synchronized String generateTransactionId() {
+    private static String generateTransactionId() {
         return "TRANS" + (++counter);
     }
+
     @Override
     public String toString() {
         return "transactionId=" + transactionId + ", dateTime=" + dateTime + ", amount=" + amount;

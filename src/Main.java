@@ -1,13 +1,11 @@
-import bankclasses.Accounts.BusinessAccount;
-import bankclasses.Accounts.CheckingAccount;
-import bankclasses.Accounts.CreditCardAccount;
-import bankclasses.Accounts.LoanAccount;
-import bankclasses.Accounts.SavingsAccount;
-import bankclasses.Branch;
-import bankclasses.Customer;
-import bankclasses.Person;
-
-import java.time.LocalDateTime;
+import bank.accounts.BusinessAccount;
+import bank.accounts.CheckingAccount;
+import bank.accounts.CreditCardAccount;
+import bank.accounts.LoanAccount;
+import bank.accounts.SavingsAccount;
+import bank.Branch;
+import bank.entities.Customer;
+import bank.entities.Person;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,10 +18,13 @@ public class Main {
 
         // Create instances of Customer, Branch, and Person
         Customer customer = new Customer("Alice Johnson", "123 Main St", "CUST001");
+        customer.greeting();
+        customer.talk();
         Branch branch = new Branch("BR001", "Downtown Branch", "456 Elm St");
         Person bankManager = new Person("John Smith", "789 Oak St");
 
         // Display initial account details
+        System.out.println(branch.getBankName());
         System.out.println("Initial Account Details:");
         System.out.println(businessAccount);
         System.out.println(checkingAccount);
@@ -47,31 +48,41 @@ public class Main {
         // Deposit and withdraw on BusinessAccount
         businessAccount.deposit(1000.00);
         System.out.println("Business Account after deposit: " + businessAccount);
+        customer.pay();
         businessAccount.withdraw(2000.00);
         System.out.println("Business Account after withdrawal: " + businessAccount);
+        customer.receipt();
 
         // Deposit and withdraw on CheckingAccount
         checkingAccount.deposit(500.00);
         System.out.println("Checking Account after deposit: " + checkingAccount);
+        customer.pay();
         checkingAccount.withdraw(2500.00);
         System.out.println("Checking Account after withdrawal: " + checkingAccount);
+        customer.receipt();
 
         // Deposit and withdraw on CreditCardAccount
         creditCardAccount.deposit(500.00);
         System.out.println("Credit Card Account after deposit: " + creditCardAccount);
+        customer.pay();
         creditCardAccount.withdraw(1200.00);
         System.out.println("Credit Card Account after withdrawal: " + creditCardAccount);
+        customer.receipt();
 
         // Deposit and withdraw on LoanAccount
         loanAccount.deposit(300.00);
         System.out.println("Loan Account after deposit: " + loanAccount);
+        customer.pay();
         loanAccount.withdraw(1500.00);
         System.out.println("Loan Account after withdrawal: " + loanAccount);
+        customer.receipt();
 
         // Deposit and withdraw on SavingsAccount
         savingsAccount.deposit(200.00);
         System.out.println("Savings Account after deposit: " + savingsAccount);
+        customer.pay();
         savingsAccount.withdraw(500.00);
         System.out.println("Savings Account after withdrawal: " + savingsAccount);
+        customer.receipt();
     }
 }

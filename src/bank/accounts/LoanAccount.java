@@ -1,11 +1,12 @@
-package bankclasses.Accounts;
+package bank.accounts;
 
-import bankclasses.Transaction;
+import bank.Abstract.AbstractAccount;
+import bank.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class LoanAccount extends Account {
+public class LoanAccount extends AbstractAccount {
     private double loanAmount;
     private double interestRate;
 

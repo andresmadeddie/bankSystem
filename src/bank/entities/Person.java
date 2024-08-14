@@ -1,8 +1,10 @@
-package bankclasses;
+package bank.entities;
+
+import bank.interfaces.*;
 
 import java.util.Objects;
 
-public class Person {
+public class Person implements Entity, Greet, Pay, Receipt, Talk {
     private String name;
     private String address;
 

@@ -1,8 +1,13 @@
-package bankclasses;
+package bank;
 
 import java.util.Objects;
 
-public class Branch {
+public final class Branch {
+    static final String bankName;
+
+    static {
+        bankName = "BankMine";
+    }
     private String branchId;
     private String branchName;
     private String address;
@@ -13,6 +18,9 @@ public class Branch {
         this.address = address;
     }
 
+    public final String getBankName(){
+        return bankName;
+    }
     @Override
     public String toString() {
         return "branchId=" + branchId + ", branchName=" + branchName + ", address=" + address;

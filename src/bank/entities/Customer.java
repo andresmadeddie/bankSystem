@@ -1,4 +1,4 @@
-package bankclasses;
+package bank.entities;
 
 import java.util.Objects;
 

@@ -1,10 +1,10 @@
-package bankclasses.Accounts;
+package bank.Abstract;
 
-public abstract class Account {
+public abstract class AbstractAccount {
     private String accountNumber;
     private double balance;
 
-    public Account(String accountNumber, double balance) {
+    public AbstractAccount(String accountNumber, double balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
     }
