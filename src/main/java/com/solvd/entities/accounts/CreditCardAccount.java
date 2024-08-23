@@ -1,6 +1,6 @@
 package main.java.com.solvd.entities.accounts;
 
-import main.java.com.solvd.Abstract.AbstractAccount;
+import main.java.com.solvd.abstractclasses.AbstractAccount;
 import main.java.com.solvd.entities.Transaction;
 
 import java.time.LocalDateTime;
