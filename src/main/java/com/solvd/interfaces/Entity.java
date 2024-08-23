@@ -2,9 +2,9 @@ package main.java.com.solvd.interfaces;
 
 public interface Entity {
 
-    public String toString();
+    String toString();
 
-    public boolean equals(Object obj);
+    boolean equals(Object obj);
 
-    public int hashCode();
+    int hashCode();
 }
