@@ -1,7 +1,7 @@
-package bank.accounts;
+package main.java.com.solvd.entities.accounts;
 
-import bank.Abstract.AbstractAccount;
-import bank.Transaction;
+import main.java.com.solvd.Abstract.AbstractAccount;
+import main.java.com.solvd.entities.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package bank.Abstract;
+package main.java.com.solvd.Abstract;
 
 public abstract class AbstractAccount {
     private String accountNumber;

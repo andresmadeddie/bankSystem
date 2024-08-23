@@ -1,6 +1,6 @@
-package bank.entities;
+package main.java.com.solvd.entities.people;
 
-import bank.interfaces.*;
+import main.java.com.solvd.interfaces.*;
 
 import java.util.Objects;
 

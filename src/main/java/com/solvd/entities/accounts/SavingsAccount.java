@@ -1,19 +1,17 @@
-package bank.accounts;
+package main.java.com.solvd.entities.accounts;
 
-import bank.Abstract.AbstractAccount;
-import bank.Transaction;
+import main.java.com.solvd.Abstract.AbstractAccount;
+import main.java.com.solvd.entities.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class BusinessAccount extends AbstractAccount {
-    private String businessName;
-    private String businessTaxId;
+public class SavingsAccount extends AbstractAccount {
+    private double interestRate;
 
-    public BusinessAccount(String accountNumber, double balance, String businessName, String businessTaxId) {
+    public SavingsAccount(String accountNumber, double balance, double interestRate) {
         super(accountNumber, balance);
-        this.businessName = businessName;
-        this.businessTaxId = businessTaxId;
+        this.interestRate = interestRate;
     }
 
     @Override
@@ -30,20 +28,19 @@ public class BusinessAccount extends AbstractAccount {
 
     @Override
     public String toString() {
-        return super.toString() + ", businessName=" + businessName + ", businessTaxId=" + businessTaxId;
+        return super.toString() + ", interestRate=" + interestRate;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (!super.equals(obj)) return false;
         if (getClass() != obj.getClass()) return false;
-        BusinessAccount that = (BusinessAccount) obj;
-        return businessName.equals(that.businessName) &&
-                businessTaxId.equals(that.businessTaxId);
+        SavingsAccount that = (SavingsAccount) obj;
+        return Double.compare(that.interestRate, interestRate) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), businessName, businessTaxId);
+        return Objects.hash(super.hashCode(), interestRate);
     }
 }

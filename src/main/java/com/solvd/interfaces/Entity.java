@@ -1,6 +1,4 @@
-package bank.interfaces;
-
-import java.util.Objects;
+package main.java.com.solvd.interfaces;
 
 public interface Entity {
 

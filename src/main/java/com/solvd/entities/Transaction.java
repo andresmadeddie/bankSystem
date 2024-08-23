@@ -1,4 +1,4 @@
-package bank;
+package main.java.com.solvd.entities;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

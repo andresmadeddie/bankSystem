@@ -1,4 +1,4 @@
-package bank.entities;
+package main.java.com.solvd.entities.people;
 
 import java.util.Objects;
 

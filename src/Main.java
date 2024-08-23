@@ -1,11 +1,11 @@
-import bank.accounts.BusinessAccount;
-import bank.accounts.CheckingAccount;
-import bank.accounts.CreditCardAccount;
-import bank.accounts.LoanAccount;
-import bank.accounts.SavingsAccount;
-import bank.Branch;
-import bank.entities.Customer;
-import bank.entities.Person;
+import main.java.com.solvd.entities.accounts.BusinessAccount;
+import main.java.com.solvd.entities.accounts.CheckingAccount;
+import main.java.com.solvd.entities.accounts.CreditCardAccount;
+import main.java.com.solvd.entities.accounts.LoanAccount;
+import main.java.com.solvd.entities.accounts.SavingsAccount;
+import main.java.com.solvd.entities.Branch;
+import main.java.com.solvd.entities.people.Customer;
+import main.java.com.solvd.entities.people.Person;
 
 public class Main {
     public static void main(String[] args) {

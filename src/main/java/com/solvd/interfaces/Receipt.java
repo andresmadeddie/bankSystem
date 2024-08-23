@@ -1,4 +1,4 @@
-package bank.interfaces;
+package main.java.com.solvd.interfaces;
 
 public interface Receipt {
     default void receipt() {
