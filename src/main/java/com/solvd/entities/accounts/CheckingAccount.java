@@ -2,6 +2,8 @@ package main.java.com.solvd.entities.accounts;
 
 import main.java.com.solvd.abstractclasses.AbstractAccount;
 import main.java.com.solvd.entities.Transaction;
+import main.java.com.solvd.exceptions.NotEnoughFundsException;
+import main.java.com.solvd.exceptions.OverCreditLimitException;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -22,18 +24,17 @@ public class CheckingAccount extends AbstractAccount {
 
     @Override
     public void withdraw(double amount) {
-        if (getBalance() + overdraftLimit < amount) {
-            System.out.println("Insufficient funds. Withdrawal amount exceeds overdraft limit.");
-            return;
-        }
-
-        Transaction transaction = new Transaction(LocalDateTime.now(), Math.random() * 100);
-        setBalance(getBalance() - amount);
-
-        if (getBalance() < amount) {
-            System.out.println("Transaction successful. Overdraft occurred.");
-        } else {
-            System.out.println("Transaction successful.");
+        //Check credit limit
+        try {
+            if (amount > overdraftLimit + getBalance()) {
+                throw new NotEnoughFundsException("\nInsufficient funds. Withdrawal amount exceeds overdraft limit.");
+            } else {
+                Transaction transaction = new Transaction(LocalDateTime.now(), Math.random() * 100);
+                setBalance(getBalance() + amount);
+                System.out.println("\nSuccessful transaction. \nCurrent Balance: " + getBalance());
+            }
+        } catch (NotEnoughFundsException e) {
+            System.out.println(e.getMessage());
         }
     }
 

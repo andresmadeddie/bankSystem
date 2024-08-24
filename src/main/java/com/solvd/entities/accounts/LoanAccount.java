@@ -38,8 +38,7 @@ public class LoanAccount extends AbstractAccount {
         if (!super.equals(obj)) return false;
         if (getClass() != obj.getClass()) return false;
         LoanAccount that = (LoanAccount) obj;
-        return Double.compare(that.loanAmount, loanAmount) == 0 &&
-                Double.compare(that.interestRate, interestRate) == 0;
+        return Double.compare(that.loanAmount, loanAmount) == 0 && Double.compare(that.interestRate, interestRate) == 0;
     }
 
     @Override

@@ -1,3 +1,4 @@
+import main.java.com.solvd.entities.CheckReading;
 import main.java.com.solvd.entities.accounts.BusinessAccount;
 import main.java.com.solvd.entities.accounts.CheckingAccount;
 import main.java.com.solvd.entities.accounts.CreditCardAccount;
@@ -7,12 +8,14 @@ import main.java.com.solvd.entities.Branch;
 import main.java.com.solvd.entities.people.Customer;
 import main.java.com.solvd.entities.people.Person;
 
+import java.sql.SQLOutput;
+
 public class Main {
     public static void main(String[] args) {
         // Create instances of different account types
         BusinessAccount businessAccount = new BusinessAccount("BA123456", 5000.00, "Tech Solutions", "123-456-789");
         CheckingAccount checkingAccount = new CheckingAccount("CA987654", 2000.00, 500.00);
-        CreditCardAccount creditCardAccount = new CreditCardAccount("CC112233", 1000.00, 5000.00, 200.00);
+        CreditCardAccount creditCardAccount = new CreditCardAccount("CC112233", 1000.00, 5000.00);
         LoanAccount loanAccount = new LoanAccount("LA445566", 1500.00, 50000.00, 3.5);
         SavingsAccount savingsAccount = new SavingsAccount("SA778899", 3000.00, 2.5);
 
@@ -84,5 +87,15 @@ public class Main {
         savingsAccount.withdraw(500.00);
         System.out.println("Savings Account after withdrawal: " + savingsAccount);
         customer.receipt();
+
+        //Exceptions test
+        System.out.println("Exceptions list:");
+        creditCardAccount.withdraw(12);
+        creditCardAccount.withdraw(10000);
+        checkingAccount.withdraw(12);
+        checkingAccount.withdraw(10000);
+
+        //Exception with resources
+        CheckReading.readCheck();
     }
 }

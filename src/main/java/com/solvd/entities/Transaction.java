@@ -30,9 +30,7 @@ public class Transaction {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Transaction that = (Transaction) obj;
-        return Double.compare(that.amount, amount) == 0 &&
-                transactionId.equals(that.transactionId) &&
-                dateTime.equals(that.dateTime);
+        return Double.compare(that.amount, amount) == 0 && transactionId.equals(that.transactionId) && dateTime.equals(that.dateTime);
     }
 
     @Override

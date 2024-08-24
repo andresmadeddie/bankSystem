@@ -38,8 +38,7 @@ public class BusinessAccount extends AbstractAccount {
         if (!super.equals(obj)) return false;
         if (getClass() != obj.getClass()) return false;
         BusinessAccount that = (BusinessAccount) obj;
-        return businessName.equals(that.businessName) &&
-                businessTaxId.equals(that.businessTaxId);
+        return businessName.equals(that.businessName) && businessTaxId.equals(that.businessTaxId);
     }
 
     @Override
