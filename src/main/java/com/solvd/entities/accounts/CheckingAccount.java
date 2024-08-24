@@ -4,11 +4,14 @@ import main.java.com.solvd.abstractclasses.AbstractAccount;
 import main.java.com.solvd.entities.Transaction;
 import main.java.com.solvd.exceptions.NotEnoughFundsException;
 import main.java.com.solvd.exceptions.OverCreditLimitException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CheckingAccount extends AbstractAccount {
+    private static final Logger LOGGER = LogManager.getLogger(CheckingAccount.class);
     private double overdraftLimit;
 
     public CheckingAccount(String accountNumber, double balance, double overdraftLimit) {
@@ -35,6 +38,7 @@ public class CheckingAccount extends AbstractAccount {
             }
         } catch (NotEnoughFundsException e) {
             System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
     }
 

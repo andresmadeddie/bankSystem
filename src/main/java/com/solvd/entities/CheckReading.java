@@ -9,7 +9,7 @@ public class CheckReading {
 
     public static void readCheck() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("insert check");
+        System.out.println("\nInsert check");
         String check = scan.next();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(check))) {

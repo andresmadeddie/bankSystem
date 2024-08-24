@@ -3,11 +3,14 @@ package main.java.com.solvd.entities.accounts;
 import main.java.com.solvd.abstractclasses.AbstractAccount;
 import main.java.com.solvd.entities.Transaction;
 import main.java.com.solvd.exceptions.OverCreditLimitException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CreditCardAccount extends AbstractAccount {
+    private static final Logger LOGGER = LogManager.getLogger(AbstractAccount.class);
     private double creditLimit;
 
     public CreditCardAccount(String accountNumber, double balance, double creditLimit) {
@@ -34,6 +37,7 @@ public class CreditCardAccount extends AbstractAccount {
             }
         } catch (OverCreditLimitException e) {
             System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
     }
 
