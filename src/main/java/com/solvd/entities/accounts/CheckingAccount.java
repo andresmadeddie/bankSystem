@@ -1,9 +1,9 @@
-package main.java.com.solvd.entities.accounts;
+package com.solvd.entities.accounts;
 
-import main.java.com.solvd.abstractclasses.AbstractAccount;
-import main.java.com.solvd.entities.Transaction;
-import main.java.com.solvd.exceptions.NotEnoughFundsException;
-import main.java.com.solvd.exceptions.OverCreditLimitException;
+import com.solvd.abstractclasses.AbstractAccount;
+import com.solvd.entities.Transaction;
+import com.solvd.exceptions.NotEnoughFundsException;
+import com.solvd.exceptions.OverCreditLimitException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

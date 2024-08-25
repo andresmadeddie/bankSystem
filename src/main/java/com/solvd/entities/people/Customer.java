@@ -1,4 +1,4 @@
-package main.java.com.solvd.entities.people;
+package com.solvd.entities.people;
 
 import java.util.Objects;
 

@@ -1,14 +1,14 @@
-import main.java.com.solvd.entities.CheckReading;
-import main.java.com.solvd.entities.accounts.BusinessAccount;
-import main.java.com.solvd.entities.accounts.CheckingAccount;
-import main.java.com.solvd.entities.accounts.CreditCardAccount;
-import main.java.com.solvd.entities.accounts.LoanAccount;
-import main.java.com.solvd.entities.accounts.SavingsAccount;
-import main.java.com.solvd.entities.Branch;
-import main.java.com.solvd.entities.people.Customer;
-import main.java.com.solvd.entities.people.Person;
+package com.solvd;
 
-import java.sql.SQLOutput;
+import com.solvd.entities.CheckReading;
+import com.solvd.entities.accounts.BusinessAccount;
+import com.solvd.entities.accounts.CheckingAccount;
+import com.solvd.entities.accounts.CreditCardAccount;
+import com.solvd.entities.accounts.LoanAccount;
+import com.solvd.entities.accounts.SavingsAccount;
+import com.solvd.entities.Branch;
+import com.solvd.entities.people.Customer;
+import com.solvd.entities.people.Person;
 
 public class Main {
     public static void main(String[] args) {

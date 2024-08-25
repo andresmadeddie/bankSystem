@@ -1,4 +1,4 @@
-package main.java.com.solvd.entities;
+package com.solvd.entities;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package main.java.com.solvd.exceptions;
+package com.solvd.exceptions;
 
 public class WrongInputException extends Exception {
     public WrongInputException(String message) {

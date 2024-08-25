@@ -1,4 +1,4 @@
-package main.java.com.solvd.interfaces;
+package com.solvd.interfaces;
 
 public interface Talk {
     default void talk(){
