@@ -1,12 +1,11 @@
 package com.solvd;
 
-import com.solvd.entities.CheckReading;
+import com.solvd.entities.*;
 import com.solvd.entities.accounts.BusinessAccount;
 import com.solvd.entities.accounts.CheckingAccount;
 import com.solvd.entities.accounts.CreditCardAccount;
 import com.solvd.entities.accounts.LoanAccount;
 import com.solvd.entities.accounts.SavingsAccount;
-import com.solvd.entities.Branch;
 import com.solvd.entities.people.Customer;
 import com.solvd.entities.people.Person;
 
@@ -23,7 +22,7 @@ public class Main {
         Customer customer = new Customer("Alice Johnson", "123 Main St", "CUST001");
         customer.greeting();
         customer.talk();
-        Branch branch = new Branch("BR001", "Downtown Branch", "456 Elm St");
+        Branch branch = new Branch("BR001", "Downtown Branch", "456 Elm St", "New York");
         Person bankManager = new Person("John Smith", "789 Oak St");
 
         // Display initial account details
@@ -88,14 +87,71 @@ public class Main {
         System.out.println("Savings Account after withdrawal: " + savingsAccount);
         customer.receipt();
 
-        //Exceptions test
+        // Exceptions test
         System.out.println("Exceptions list:");
         creditCardAccount.withdraw(12);
         creditCardAccount.withdraw(10000);
         checkingAccount.withdraw(12);
         checkingAccount.withdraw(10000);
 
-        //Exception with resources
-        CheckReading.readCheck();
+        // Exception with resources
+        //CheckReading.readCheck();
+
+        // MyLinkedList
+        System.out.println();
+        branch.addPersonTOPayroll(bankManager);
+        branch.printPayroll();
+        branch.addPersonTOPayroll(bankManager);
+        branch.getPayroll().toList()
+                .forEach(System.out::println);
+
+        // Hashset
+        System.out.println();
+        branch.addCustomerDB(customer);
+        branch.getCustomerDB().forEach(System.out::println);
+        branch.addCustomerDB(customer);
+
+        // List
+        System.out.println();
+        Branch.getTransactionDB().forEach(System.out::println);
+
+        // Map
+        System.out.println();
+        System.out.println(Bank.getBranchesByCity("New York"));
+        System.out.println(Bank.getBranchesByCity("Madrid"));
+        Branch branch2 = new Branch("BR002", "Central Branch", "532 calle Barcelona", "Madrid");
+        System.out.println(Bank.getBranchesByCity("Madrid"));
+
+        // Queue
+        System.out.println();
+        WaitingList waitingList = new WaitingList();
+        waitingList.addToWaitingList("Bowser");
+        waitingList.addToWaitingList("Mario");
+        waitingList.addToWaitingList("Peach");
+        System.out.println("Waiting list size: " + waitingList.getListSize());
+        waitingList.peekNextPerson();
+        waitingList.serveNextPerson();
+        System.out.println("Waiting list size: " + waitingList.getListSize());
+        waitingList.serveNextPerson();
+        waitingList.serveNextPerson();
+        waitingList.serveNextPerson();
+        System.out.println("Is the waiting list empty? " + waitingList.isEmpty());
+
+        // Dequeue LIFO
+        System.out.println();
+        WithdrawalMachine machine = new WithdrawalMachine();
+        machine.addBill(new Bill("SN123", 20));
+        machine.addBill(new Bill("SN124", 20));
+        machine.addBill(new Bill("SN125", 20));
+        System.out.println("\nListing all bills in the machine: \n" + machine.listAllBills());
+        System.out.println("\nCheck Bill SN124: " + machine.checkBillBySerialNumber("SN124") + "\n");
+        //Withdrawal
+        System.out.println("Withdrawn Bill: " + machine.withdrawBill());
+        System.out.println("Withdrawn Bill: " + machine.withdrawBill());
+        System.out.println("Withdrawn Bill: " + machine.withdrawBill());
+        System.out.println("Withdrawn Bill: " + machine.withdrawBill());
+        System.out.println("\n Listing all bills in the machine: \n" + machine.listAllBills());
+
+
     }
 }

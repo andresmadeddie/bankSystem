@@ -1,4 +1,4 @@
-package com.solvd.entities;
+package com.solvd.utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
