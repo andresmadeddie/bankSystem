@@ -8,6 +8,7 @@ import com.solvd.entities.accounts.LoanAccount;
 import com.solvd.entities.accounts.SavingsAccount;
 import com.solvd.entities.people.Customer;
 import com.solvd.entities.people.Person;
+import com.solvd.utils.UniqueWorldCounter;
 
 public class Main {
     public static void main(String[] args) {
@@ -152,6 +153,9 @@ public class Main {
         System.out.println("Withdrawn Bill: " + machine.withdrawBill());
         System.out.println("\n Listing all bills in the machine: \n" + machine.listAllBills());
 
-
+        // Word counter
+        System.out.println();
+        UniqueWorldCounter.uniqueWordCounter();
+        UniqueWorldCounter.uniqueWordCounter2();
     }
 }
