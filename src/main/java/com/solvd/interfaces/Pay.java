@@ -1,4 +1,4 @@
-package main.java.com.solvd.interfaces;
+package com.solvd.interfaces;
 
 public interface Pay {
     default void pay() {

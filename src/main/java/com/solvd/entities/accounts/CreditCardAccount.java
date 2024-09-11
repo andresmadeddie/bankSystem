@@ -1,19 +1,21 @@
-package main.java.com.solvd.entities.accounts;
+package com.solvd.entities.accounts;
 
-import main.java.com.solvd.abstractclasses.AbstractAccount;
-import main.java.com.solvd.entities.Transaction;
+import com.solvd.abstractclasses.AbstractAccount;
+import com.solvd.entities.Transaction;
+import com.solvd.exceptions.OverCreditLimitException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CreditCardAccount extends AbstractAccount {
+    private static final Logger LOGGER = LogManager.getLogger(AbstractAccount.class);
     private double creditLimit;
-    private double outstandingBalance;
 
-    public CreditCardAccount(String accountNumber, double balance, double creditLimit, double outstandingBalance) {
+    public CreditCardAccount(String accountNumber, double balance, double creditLimit) {
         super(accountNumber, balance);
         this.creditLimit = creditLimit;
-        this.outstandingBalance = outstandingBalance;
     }
 
     @Override
@@ -24,13 +26,24 @@ public class CreditCardAccount extends AbstractAccount {
 
     @Override
     public void withdraw(double amount) {
-        Transaction transaction = new Transaction(LocalDateTime.now(), Math.random() * 100);
-        setBalance(getBalance() - amount);
+        //Check credit limit
+        try {
+            if (amount > creditLimit + getBalance()) {
+                throw new OverCreditLimitException("\nThe requested amount exceeds your credit limit." + "\nCurrent Balance: " + getBalance() + "\nCredit Limit: " + creditLimit + "\nDifference: " + (creditLimit - getBalance()));
+            } else {
+                Transaction transaction = new Transaction(LocalDateTime.now(), Math.random() * 100);
+                setBalance(getBalance() + amount);
+                System.out.println("\nSuccessful transaction. \nCurrent Balance: " + getBalance());
+            }
+        } catch (OverCreditLimitException e) {
+            System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
+        }
     }
 
     @Override
     public String toString() {
-        return super.toString() + ", creditLimit=" + creditLimit + ", outstandingBalance=" + outstandingBalance;
+        return super.toString() + ", creditLimit=" + creditLimit;
     }
 
     @Override
@@ -38,12 +51,11 @@ public class CreditCardAccount extends AbstractAccount {
         if (!super.equals(obj)) return false;
         if (getClass() != obj.getClass()) return false;
         CreditCardAccount that = (CreditCardAccount) obj;
-        return Double.compare(that.creditLimit, creditLimit) == 0 &&
-                Double.compare(that.outstandingBalance, outstandingBalance) == 0;
+        return Double.compare(that.creditLimit, creditLimit) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), creditLimit, outstandingBalance);
+        return Objects.hash(super.hashCode());
     }
 }

@@ -1,7 +1,7 @@
-package main.java.com.solvd.entities.accounts;
+package com.solvd.entities.accounts;
 
-import main.java.com.solvd.abstractclasses.AbstractAccount;
-import main.java.com.solvd.entities.Transaction;
+import com.solvd.abstractclasses.AbstractAccount;
+import com.solvd.entities.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -38,8 +38,7 @@ public class LoanAccount extends AbstractAccount {
         if (!super.equals(obj)) return false;
         if (getClass() != obj.getClass()) return false;
         LoanAccount that = (LoanAccount) obj;
-        return Double.compare(that.loanAmount, loanAmount) == 0 &&
-                Double.compare(that.interestRate, interestRate) == 0;
+        return Double.compare(that.loanAmount, loanAmount) == 0 && Double.compare(that.interestRate, interestRate) == 0;
     }
 
     @Override

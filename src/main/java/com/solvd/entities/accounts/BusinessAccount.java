@@ -1,7 +1,7 @@
-package main.java.com.solvd.entities.accounts;
+package com.solvd.entities.accounts;
 
-import main.java.com.solvd.abstractclasses.AbstractAccount;
-import main.java.com.solvd.entities.Transaction;
+import com.solvd.abstractclasses.AbstractAccount;
+import com.solvd.entities.Transaction;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -38,8 +38,7 @@ public class BusinessAccount extends AbstractAccount {
         if (!super.equals(obj)) return false;
         if (getClass() != obj.getClass()) return false;
         BusinessAccount that = (BusinessAccount) obj;
-        return businessName.equals(that.businessName) &&
-                businessTaxId.equals(that.businessTaxId);
+        return businessName.equals(that.businessName) && businessTaxId.equals(that.businessTaxId);
     }
 
     @Override

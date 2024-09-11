@@ -1,12 +1,17 @@
-package main.java.com.solvd.entities.accounts;
+package com.solvd.entities.accounts;
 
-import main.java.com.solvd.abstractclasses.AbstractAccount;
-import main.java.com.solvd.entities.Transaction;
+import com.solvd.abstractclasses.AbstractAccount;
+import com.solvd.entities.Transaction;
+import com.solvd.exceptions.NotEnoughFundsException;
+import com.solvd.exceptions.OverCreditLimitException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class CheckingAccount extends AbstractAccount {
+    private static final Logger LOGGER = LogManager.getLogger(CheckingAccount.class);
     private double overdraftLimit;
 
     public CheckingAccount(String accountNumber, double balance, double overdraftLimit) {
@@ -22,18 +27,18 @@ public class CheckingAccount extends AbstractAccount {
 
     @Override
     public void withdraw(double amount) {
-        if (getBalance() + overdraftLimit < amount) {
-            System.out.println("Insufficient funds. Withdrawal amount exceeds overdraft limit.");
-            return;
-        }
-
-        Transaction transaction = new Transaction(LocalDateTime.now(), Math.random() * 100);
-        setBalance(getBalance() - amount);
-
-        if (getBalance() < amount) {
-            System.out.println("Transaction successful. Overdraft occurred.");
-        } else {
-            System.out.println("Transaction successful.");
+        //Check credit limit
+        try {
+            if (amount > overdraftLimit + getBalance()) {
+                throw new NotEnoughFundsException("\nInsufficient funds. Withdrawal amount exceeds overdraft limit.");
+            } else {
+                Transaction transaction = new Transaction(LocalDateTime.now(), Math.random() * 100);
+                setBalance(getBalance() + amount);
+                System.out.println("\nSuccessful transaction. \nCurrent Balance: " + getBalance());
+            }
+        } catch (NotEnoughFundsException e) {
+            System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
         }
     }
 

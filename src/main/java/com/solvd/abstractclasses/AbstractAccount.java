@@ -1,4 +1,4 @@
-package main.java.com.solvd.abstractclasses;
+package com.solvd.abstractclasses;
 
 public abstract class AbstractAccount {
     private String accountNumber;

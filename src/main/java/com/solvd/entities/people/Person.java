@@ -1,6 +1,6 @@
-package main.java.com.solvd.entities.people;
+package com.solvd.entities.people;
 
-import main.java.com.solvd.interfaces.*;
+import com.solvd.interfaces.*;
 
 import java.util.Objects;
 

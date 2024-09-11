@@ -1,4 +1,4 @@
-package main.java.com.solvd.entities;
+package com.solvd.entities;
 
 import java.util.Objects;
 
@@ -8,6 +8,7 @@ public final class Branch {
     static {
         bankName = "BankMine";
     }
+
     private String branchId;
     private String branchName;
     private String address;
@@ -18,9 +19,10 @@ public final class Branch {
         this.address = address;
     }
 
-    public final String getBankName(){
+    public final String getBankName() {
         return bankName;
     }
+
     @Override
     public String toString() {
         return "branchId=" + branchId + ", branchName=" + branchName + ", address=" + address;
@@ -31,9 +33,7 @@ public final class Branch {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Branch branch = (Branch) obj;
-        return branchId.equals(branch.branchId) &&
-                branchName.equals(branch.branchName) &&
-                address.equals(branch.address);
+        return branchId.equals(branch.branchId) && branchName.equals(branch.branchName) && address.equals(branch.address);
     }
 
     @Override
