@@ -1,6 +1,6 @@
 package com.solvd.interfaces;
 
-public interface Greet {
+public interface IGreetable {
     default void greeting(){
         System.out.println("\"Hello\"\n");
     }

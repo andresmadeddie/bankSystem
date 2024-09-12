@@ -4,9 +4,9 @@ import com.solvd.interfaces.*;
 
 import java.util.Objects;
 
-public class Person implements Entity, Greet, Pay, Receipt, Talk {
-    private String name;
-    private String address;
+public class Person implements IEntity, IGreetable, IPayable, IReceipt, ITalk {
+    public String name;
+    public String address;
 
     public Person(String name, String address) {
         this.name = name;

@@ -35,6 +35,7 @@ public final class Branch {
     public final String getBankName() {
         return bankName;
     }
+
     public String getBranchName() {
         return branchName;
     }
@@ -52,6 +53,7 @@ public final class Branch {
     public Set<Customer> getCustomerDB() {
         return customerDB;
     }
+
     public void addCustomerDB(Customer customer) {
         if (!customerDB.contains(customer)) {
             customerDB.add(customer);
@@ -59,6 +61,7 @@ public final class Branch {
             System.out.println("Customer already in the Database");
         }
     }
+
 
     // PAYROLL METHODS
     public void addPersonTOPayroll(Person newPerson) {

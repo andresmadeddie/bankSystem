@@ -8,7 +8,7 @@ public class Transaction {
 
     private static int counter = 0;
     private String transactionId;
-        private double amount;
+    private double amount;
 
     public Transaction(double amount) {
         this.transactionId = generateTransactionId();

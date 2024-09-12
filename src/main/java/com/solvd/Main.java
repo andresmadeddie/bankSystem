@@ -8,7 +8,13 @@ import com.solvd.entities.accounts.LoanAccount;
 import com.solvd.entities.accounts.SavingsAccount;
 import com.solvd.entities.people.Customer;
 import com.solvd.entities.people.Person;
+import com.solvd.interfaces.functionalinterfaces.IConverter;
+import com.solvd.interfaces.functionalinterfaces.IFinder;
+import com.solvd.interfaces.functionalinterfaces.ITalker;
 import com.solvd.utils.UniqueWorldCounter;
+import org.apache.logging.log4j.core.util.JsonUtils;
+
+import javax.xml.namespace.QName;
 
 public class Main {
     public static void main(String[] args) {
@@ -157,5 +163,26 @@ public class Main {
         System.out.println();
         UniqueWorldCounter.uniqueWordCounter();
         UniqueWorldCounter.uniqueWordCounter2();
+
+        // 3 Lambda function with generics
+        System.out.println();
+        IConverter<Double, Float> convertCurrency = (Double amount, Float rate) -> amount * rate * 100;
+        System.out.println(convertCurrency.convert(50.0, 0.25F));
+        ITalker<String> talkRobot = (String something) -> System.out.println(something);
+        talkRobot.talk("Welcome to BankMine, where your money is mine");
+        IFinder<String> findCustomer = (String customerName) ->
+                branch.getCustomerDB().stream()
+                        .filter(c -> c.name.equals(customerName))
+                        .findFirst()
+                        .ifPresentOrElse(
+                                c -> System.out.println("Customer found. \nName: " + customerName + "\nAddress: " + c.address),
+                                () -> System.out.println("No customer found with the name: " + customerName)
+                        );
+        findCustomer.finder("Hannibal");
+        findCustomer.finder(String.valueOf(branch.getCustomerDB().stream().findAny().get().name));
     }
+
+
+
+
 }
