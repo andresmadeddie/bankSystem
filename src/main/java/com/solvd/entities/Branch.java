@@ -13,13 +13,17 @@ public final class Branch {
         bankName = "BankMine";
     }
 
+    public String getBranchId() {
+        return branchId;
+    }
+
     private String branchId;
     private String branchName;
     private String address;
     private String city;
     private final MyLinkedList<Person> payroll;
     private final Set<Customer> customerDB;
-    private static List<Transaction> transactionDB;
+    private List<Transaction> transactionDB;
 
     public Branch(String branchId, String branchName, String address, String city) {
         this.branchId = branchId;
@@ -41,11 +45,11 @@ public final class Branch {
     }
 
     // TRANSACTION METHODS
-    public static List<Transaction> getTransactionDB() {
+    public List<Transaction> getTransactionDB() {
         return transactionDB;
     }
 
-    public static void addToTransactionDB (Transaction transaction) {
+    public void addToTransactionDB (Transaction transaction) {
         transactionDB.add(transaction);
     }
 

@@ -9,10 +9,7 @@ import com.solvd.interfaces.functionalinterfaces.IFinder;
 import com.solvd.interfaces.functionalinterfaces.ITalker;
 import com.solvd.utils.UniqueWorldCounter;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -53,51 +50,51 @@ public class Main {
         System.out.println("\nPerforming operations...\n");
 
         // Deposit and withdraw on BusinessAccount
-        businessAccount.deposit(1000.00);
+        businessAccount.deposit(1000.00, branch);
         System.out.println("Business Account after deposit: " + businessAccount);
         customer.pay();
-        businessAccount.withdraw(2000.00);
+        businessAccount.withdraw(2000.00, branch);
         System.out.println("Business Account after withdrawal: " + businessAccount);
         customer.receipt();
 
         // Deposit and withdraw on CheckingAccount
-        checkingAccount.deposit(500.00);
+        checkingAccount.deposit(500.00, branch);
         System.out.println("Checking Account after deposit: " + checkingAccount);
         customer.pay();
-        checkingAccount.withdraw(2500.00);
+        checkingAccount.withdraw(2500.00, branch);
         System.out.println("Checking Account after withdrawal: " + checkingAccount);
         customer.receipt();
 
         // Deposit and withdraw on CreditCardAccount
-        creditCardAccount.deposit(500.00);
+        creditCardAccount.deposit(500.00, branch);
         System.out.println("Credit Card Account after deposit: " + creditCardAccount);
         customer.pay();
-        creditCardAccount.withdraw(1200.00);
+        creditCardAccount.withdraw(1200.00, branch);
         System.out.println("Credit Card Account after withdrawal: " + creditCardAccount);
         customer.receipt();
 
         // Deposit and withdraw on LoanAccount
-        loanAccount.deposit(300.00);
+        loanAccount.deposit(300.00, branch);
         System.out.println("Loan Account after deposit: " + loanAccount);
         customer.pay();
-        loanAccount.withdraw(1500.00);
+        loanAccount.withdraw(1500.00, branch);
         System.out.println("Loan Account after withdrawal: " + loanAccount);
         customer.receipt();
 
         // Deposit and withdraw on SavingsAccount
-        savingsAccount.deposit(200.00);
+        savingsAccount.deposit(200.00, branch);
         System.out.println("Savings Account after deposit: " + savingsAccount);
         customer.pay();
-        savingsAccount.withdraw(500.00);
+        savingsAccount.withdraw(500.00, branch);
         System.out.println("Savings Account after withdrawal: " + savingsAccount);
         customer.receipt();
 
         // Exceptions test
         System.out.println("Exceptions list:");
-        creditCardAccount.withdraw(12);
-        creditCardAccount.withdraw(10000);
-        checkingAccount.withdraw(12);
-        checkingAccount.withdraw(10000);
+        creditCardAccount.withdraw(12, branch);
+        creditCardAccount.withdraw(10000, branch);
+        checkingAccount.withdraw(12, branch);
+        checkingAccount.withdraw(10000, branch);
 
         // Exception with resources
         //CheckReading.readCheck();
@@ -118,7 +115,7 @@ public class Main {
 
         // List
         System.out.println();
-        Branch.getTransactionDB().forEach(System.out::println);
+        branch.getTransactionDB().forEach(System.out::println);
 
         // Map
         System.out.println();
@@ -162,7 +159,7 @@ public class Main {
         UniqueWorldCounter.uniqueWordCounter();
         UniqueWorldCounter.uniqueWordCounter2();
 
-        // 5 Lambda from java.utils
+        // 5 Lambda using java.utils
         Predicate<WithdrawalMachine> hasMoney = (withdrawalMachine) -> !withdrawalMachine.listAllBills().isEmpty();
         System.out.println("\nThe withdrawal machine has money: " + hasMoney.test(machine));
         Supplier<String> printRandomCustomerName = () -> branch.getCustomerDB().stream()
@@ -184,8 +181,13 @@ public class Main {
                 .orElse(null);
         System.out.println("Branch: " + (getBranchByName.apply("Downtown Branch") != null ? getBranchByName.apply("Downtown Branch").getBranchName() : "Not found"));
         System.out.println("Branch: " + (getBranchByName.apply("No Branch") != null ? getBranchByName.apply("No Branch").getBranchName() : "Not found"));
+        UnaryOperator<String> countAllTransactionsInBranch = branchId -> String.valueOf((Bank.branches.values().stream()
+                .filter(b -> b.getBranchId().equals(branchId))
+                .mapToInt(b -> b.getTransactionDB().size())
+                .sum()));
+        System.out.println("Number of transaction in branch BR001: " + countAllTransactionsInBranch.apply("BR001"));
 
-        // 3 Lambda function with generics
+        // 3 Lambda function using generics
         IConverter<Double, Float> convertCurrency = (Double amount, Float rate) -> amount * rate * 100;
         System.out.println("\nCurrency conversion: " + convertCurrency.convert(50.0, 0.25F));
         ITalker<String> talkRobot = (String something) -> System.out.println(something);

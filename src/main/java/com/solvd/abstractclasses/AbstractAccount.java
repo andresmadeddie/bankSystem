@@ -1,5 +1,7 @@
 package com.solvd.abstractclasses;
 
+import com.solvd.entities.Branch;
+
 public abstract class AbstractAccount {
     private final String accountNumber;
     private double balance;
@@ -9,15 +11,15 @@ public abstract class AbstractAccount {
         this.balance = balance;
     }
 
-    public abstract void deposit(double amount);
+    public abstract void deposit(double amount, Branch branch);
 
-    public abstract void withdraw(double amount);
+    public abstract void withdraw(double amount, Branch branch);
 
     public double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(double balance, Branch branch) {
         this.balance = balance;
     }
 
