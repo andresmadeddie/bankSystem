@@ -3,7 +3,8 @@ package com.solvd;
 import com.solvd.entities.*;
 import com.solvd.entities.accounts.*;
 import com.solvd.entities.people.Customer;
-import com.solvd.entities.people.Person;
+import com.solvd.entities.people.Employee;
+import com.solvd.enums.*;
 import com.solvd.interfaces.functionalinterfaces.IConverter;
 import com.solvd.interfaces.functionalinterfaces.IFinder;
 import com.solvd.interfaces.functionalinterfaces.ITalker;
@@ -24,8 +25,8 @@ public class Main {
         Customer customer = new Customer("Alice Johnson", "123 Main St", "CUST001");
         customer.greeting();
         customer.talk();
-        Branch branch = new Branch("BR001", "Downtown Branch", "456 Elm St", "New York");
-        Person bankManager = new Person("John Smith", "789 Oak St");
+        Branch branch = new Branch("BR001", BranchNames.DOWNTOWN_BRANCH.getBranchName(), "456 Elm St", "New York");
+        Employee bankManager = new Employee("John Smith", "789 Oak St", JobPositions.MANAGER.getJobPosition());
 
         // Display initial account details
         System.out.println(branch.getBankName());
@@ -121,7 +122,7 @@ public class Main {
         System.out.println();
         System.out.println(Bank.getBranchesByCity("New York"));
         System.out.println(Bank.getBranchesByCity("Madrid"));
-        Branch branch2 = new Branch("BR002", "Central Branch", "532 calle Barcelona", "Madrid");
+        Branch branch2 = new Branch("BR002", BranchNames.CENTRAL_BRANCH.getBranchName(), "532 calle Barcelona", "Madrid");
         System.out.println(Bank.getBranchesByCity("Madrid"));
 
         // Queue
@@ -141,7 +142,7 @@ public class Main {
 
         // Dequeue LIFO
         System.out.println();
-        WithdrawalMachine machine = new WithdrawalMachine();
+        WithdrawalMachine machine = new WithdrawalMachine(WithdrawalMachinesNumbers.SN001.getSerialNumber());
         machine.addBill(new Bill("SN123", 20));
         machine.addBill(new Bill("SN124", 20));
         machine.addBill(new Bill("SN125", 20));
@@ -202,5 +203,22 @@ public class Main {
                         );
         findCustomer.finder("Hannibal");
         findCustomer.finder(String.valueOf(branch.getCustomerDB().stream().findAny().get().name));
+
+        //ENUMS
+        System.out.println();
+        for (FestiveDays day : FestiveDays.values()) {
+            System.out.println(day.getName() + " is on " + day.getMonth() + " " + day.getDay());
+        }
+        System.out.println(PromotionsNames.LOWCREDITRATE.percentPromo);
+        System.out.println(PromotionsNames.SUPERSAVINGSRATE.percentPromo);
+        WithdrawalMachine machine2 = new WithdrawalMachine(WithdrawalMachinesNumbers.SN001.getSerialNumber());
+        System.out.println(machine2);
+        Employee cashier = new Employee("Bill Gate", "79 windows gated St", JobPositions.CASHIER.getJobPosition());
+        Employee securityGuard = new Employee("Jim Morrison", "2563 Doors St", JobPositions.SECURITY_GUARD.getJobPosition());
+        System.out.println(cashier);
+        System.out.println(securityGuard);
+        Branch anotherBranch = new Branch("BR432432", BranchNames.SOMETHINGELSEBRANCH.getBranchName(), "2345 Under the sea", "Atlantis");
+        System.out.println(anotherBranch);
+
     }
 }

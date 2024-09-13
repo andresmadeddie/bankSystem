@@ -4,7 +4,7 @@ import com.solvd.interfaces.*;
 
 import java.util.Objects;
 
-public class Person implements IEntity, IGreetable, IPayable, IReceipt, ITalk {
+public abstract  class Person implements IEntity, IGreetable, IPayable, IReceipt, ITalk {
     public String name;
     public String address;
 

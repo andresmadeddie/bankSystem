@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WithdrawalMachine {
-    private Deque<Bill> bills;
-    private Map<String, Bill> billMap; // To quickly check bills by serial number
+    private final String serialNumber;
+    private final Deque<Bill> bills;
+    private final Map<String, Bill> billMap; // To quickly check bills by serial number
 
-    public WithdrawalMachine() {
+    public WithdrawalMachine(String serialNumber) {
         bills = new ArrayDeque<>();
         billMap = new HashMap<>();
+        this.serialNumber = serialNumber;
     }
 
     public void addBill(Bill bill) {

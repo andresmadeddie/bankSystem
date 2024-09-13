@@ -572,3 +572,45 @@ Credit Limit: 5000.0
 Difference: 2288.0
 2024-09-13 17:28:23 INFO  CheckingAccount:42 - 
 Insufficient funds. Withdrawal amount exceeds overdraft limit.
+2024-09-13 17:52:03 INFO  AbstractAccount:41 - 
+The requested amount exceeds your credit limit.
+Current Balance: 2712.0
+Credit Limit: 5000.0
+Difference: 2288.0
+2024-09-13 17:52:03 INFO  CheckingAccount:42 - 
+Insufficient funds. Withdrawal amount exceeds overdraft limit.
+2024-09-13 18:05:39 INFO  AbstractAccount:41 - 
+The requested amount exceeds your credit limit.
+Current Balance: 2712.0
+Credit Limit: 5000.0
+Difference: 2288.0
+2024-09-13 18:05:39 INFO  CheckingAccount:42 - 
+Insufficient funds. Withdrawal amount exceeds overdraft limit.
+2024-09-13 18:12:23 INFO  AbstractAccount:41 - 
+The requested amount exceeds your credit limit.
+Current Balance: 2712.0
+Credit Limit: 5000.0
+Difference: 2288.0
+2024-09-13 18:12:23 INFO  CheckingAccount:42 - 
+Insufficient funds. Withdrawal amount exceeds overdraft limit.
+2024-09-13 18:39:49 INFO  AbstractAccount:41 - 
+The requested amount exceeds your credit limit.
+Current Balance: 2712.0
+Credit Limit: 5000.0
+Difference: 2288.0
+2024-09-13 18:39:49 INFO  CheckingAccount:42 - 
+Insufficient funds. Withdrawal amount exceeds overdraft limit.
+2024-09-13 18:52:53 INFO  AbstractAccount:41 - 
+The requested amount exceeds your credit limit.
+Current Balance: 2712.0
+Credit Limit: 5000.0
+Difference: 2288.0
+2024-09-13 18:52:53 INFO  CheckingAccount:42 - 
+Insufficient funds. Withdrawal amount exceeds overdraft limit.
+2024-09-13 18:55:12 INFO  AbstractAccount:41 - 
+The requested amount exceeds your credit limit.
+Current Balance: 2712.0
+Credit Limit: 5000.0
+Difference: 2288.0
+2024-09-13 18:55:12 INFO  CheckingAccount:42 - 
+Insufficient funds. Withdrawal amount exceeds overdraft limit.
