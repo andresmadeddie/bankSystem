@@ -21,7 +21,7 @@ public class CheckingAccount extends AbstractAccount {
 
     @Override
     public void deposit(double amount) {
-        Transaction transaction = new Transaction(LocalDateTime.now(), amount);
+        Transaction transaction = new Transaction(amount);
         setBalance(getBalance() + amount);
     }
 
@@ -32,7 +32,7 @@ public class CheckingAccount extends AbstractAccount {
             if (amount > overdraftLimit + getBalance()) {
                 throw new NotEnoughFundsException("\nInsufficient funds. Withdrawal amount exceeds overdraft limit.");
             } else {
-                Transaction transaction = new Transaction(LocalDateTime.now(), Math.random() * 100);
+                Transaction transaction = new Transaction(Math.random() * 100);
                 setBalance(getBalance() + amount);
                 System.out.println("\nSuccessful transaction. \nCurrent Balance: " + getBalance());
             }

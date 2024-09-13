@@ -4,19 +4,21 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Transaction {
+    private final LocalDateTime dateTime = LocalDateTime.now();
+
     private static int counter = 0;
     private String transactionId;
-    private LocalDateTime dateTime;
-    private double amount;
+        private double amount;
 
-    public Transaction(LocalDateTime dateTime, double amount) {
+    public Transaction(double amount) {
         this.transactionId = generateTransactionId();
-        this.dateTime = dateTime;
         this.amount = amount;
+        // Add to TransactionDB
+        Branch.addToTransactionDB(this);
     }
 
     // Generate a new unique transaction ID
-    private static String generateTransactionId() {
+    private String generateTransactionId() {
         return "TRANS" + (++counter);
     }
 

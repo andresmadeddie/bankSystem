@@ -20,7 +20,7 @@ public class CreditCardAccount extends AbstractAccount {
 
     @Override
     public void deposit(double amount) {
-        Transaction transaction = new Transaction(LocalDateTime.now(), amount);
+        Transaction transaction = new Transaction(amount);
         setBalance(getBalance() + amount);
     }
 
@@ -31,7 +31,7 @@ public class CreditCardAccount extends AbstractAccount {
             if (amount > creditLimit + getBalance()) {
                 throw new OverCreditLimitException("\nThe requested amount exceeds your credit limit." + "\nCurrent Balance: " + getBalance() + "\nCredit Limit: " + creditLimit + "\nDifference: " + (creditLimit - getBalance()));
             } else {
-                Transaction transaction = new Transaction(LocalDateTime.now(), Math.random() * 100);
+                Transaction transaction = new Transaction(Math.random() * 100);
                 setBalance(getBalance() + amount);
                 System.out.println("\nSuccessful transaction. \nCurrent Balance: " + getBalance());
             }

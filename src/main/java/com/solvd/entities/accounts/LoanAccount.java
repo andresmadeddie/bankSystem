@@ -18,13 +18,13 @@ public class LoanAccount extends AbstractAccount {
 
     @Override
     public void deposit(double amount) {
-        Transaction transaction = new Transaction(LocalDateTime.now(), amount);
+        Transaction transaction = new Transaction(amount);
         setBalance(getBalance() + amount);
     }
 
     @Override
     public void withdraw(double amount) {
-        Transaction transaction = new Transaction(LocalDateTime.now(), Math.random() * 100);
+        Transaction transaction = new Transaction(Math.random() * 100);
         setBalance(getBalance() - amount);
     }
 

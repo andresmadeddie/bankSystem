@@ -1,7 +1,7 @@
 package com.solvd.abstractclasses;
 
 public abstract class AbstractAccount {
-    private String accountNumber;
+    private final String accountNumber;
     private double balance;
 
     public AbstractAccount(String accountNumber, double balance) {
