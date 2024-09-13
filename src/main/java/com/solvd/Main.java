@@ -10,10 +10,16 @@ import com.solvd.interfaces.functionalinterfaces.IFinder;
 import com.solvd.interfaces.functionalinterfaces.ITalker;
 import com.solvd.utils.UniqueWorldCounter;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.function.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
         // Create instances of different account types
         BusinessAccount businessAccount = new BusinessAccount("BA123456", 5000.00, "Tech Solutions", "123-456-789");
         CheckingAccount checkingAccount = new CheckingAccount("CA987654", 2000.00, 500.00);
@@ -219,6 +225,55 @@ public class Main {
         System.out.println(securityGuard);
         Branch anotherBranch = new Branch("BR432432", BranchNames.SOMETHINGELSEBRANCH.getBranchName(), "2345 Under the sea", "Atlantis");
         System.out.println(anotherBranch);
+
+        // 7 Stream
+        System.out.println("You can find 6 uses of stream on this Main class at lines: \n166, 170, 179, 185, 197, and 205" +
+                "The 7th use can be found at the UniquerWorldCounter class at line 16");
+
+        // Reflexion
+        //CLASS
+        System.out.println("\n--- CLASS ---");
+
+        // Initialize classA
+        Class classA = Class.forName("com.solvd.entities.Branch");
+
+        // Print all public Methods in the Branch Class
+        System.out.println("\n--- All public methods used in the Branch CLass --- ");
+        System.out.println(Stream.of(classA.getMethods()).map(Method::getName).collect(Collectors.toList()));
+
+        // Print only methods that belongs to the Branch Class
+        System.out.println("\n--- Only all methods that belongs to the Branch CLass (exclude inherited method) ---");
+        System.out.println(Stream.of(classA.getDeclaredMethods()).map(Method::getName).collect(Collectors.toList()));
+
+        //METHOD
+        System.out.println("\n--- METHOD ---");
+        //Create new Branch and change its name with reflexion
+        System.out.println("\n--- Create Branch and Change name with reflexion ---");
+
+        //New library
+        Branch testBranch = new Branch("Bra102030", "TheOneFoTest", "233 Elm Street", "FreddyCity");
+        System.out.println("First Branch Name: " + testBranch.getBranchName());
+
+        //Change the name using the local method with reflexion
+        Method setBranchNamemethod = classA.getDeclaredMethod("setBranchName", String.class);
+        setBranchNamemethod.invoke(testBranch, "NewNameByMETHODReflexion");
+        System.out.println("Renamed by Field Reflexion: " + testBranch.getBranchName());
+
+        //CONSTRUCTOR
+        System.out.println("\n--- CONSTRUCTOR ---");
+        // Get constructors
+        System.out.println("\n--- Get constructor ---");
+        Stream.of(classA.getConstructors()).map(Constructor -> Arrays.toString(Constructor.getParameterTypes()))
+                .forEach(System.out::println);
+
+        //FIELD
+        System.out.println("\n--- FIELD ---");
+        //Change name by Field reflexion
+        System.out.println("\n--- Change name by Field reflexion ---");
+        Field field = classA.getDeclaredField("branchName");
+        field.setAccessible(true);
+        field.set(testBranch, "NewNameByFIELDReflexion");
+        System.out.println("Renamed by Field Reflexion: " + testBranch.getBranchName());
 
     }
 }

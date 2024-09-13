@@ -44,6 +44,10 @@ public final class Branch {
         return branchName;
     }
 
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
+
     // TRANSACTION METHODS
     public List<Transaction> getTransactionDB() {
         return transactionDB;
