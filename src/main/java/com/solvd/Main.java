@@ -250,13 +250,13 @@ public class Main {
         //Create new Branch and change its name with reflexion
         System.out.println("\n--- Create Branch and Change name with reflexion ---");
 
-        //New library
-        Branch testBranch = new Branch("Bra102030", "TheOneFoTest", "233 Elm Street", "FreddyCity");
-        System.out.println("First Branch Name: " + testBranch.getBranchName());
+        //New Branch
+        Branch testBranch = new Branch("Bra102030", "TheOneForTest", "233 Elm Street", "FreddyCity");
+        System.out.println("testBranch Name: " + testBranch.getBranchName());
 
         //Change the name using the local method with reflexion
-        Method setBranchNamemethod = classA.getDeclaredMethod("setBranchName", String.class);
-        setBranchNamemethod.invoke(testBranch, "NewNameByMETHODReflexion");
+        Method setBranchNameMethod = classA.getDeclaredMethod("setBranchName", String.class);
+        setBranchNameMethod.invoke(testBranch, "NewNameByMETHODReflexion");
         System.out.println("Renamed by Field Reflexion: " + testBranch.getBranchName());
 
         //CONSTRUCTOR
