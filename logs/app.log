@@ -166,3 +166,10 @@ Credit Limit: 5000.0
 Difference: 2288.0
 2024-08-31 17:41:41 INFO  CheckingAccount:41 - 
 Insufficient funds. Withdrawal amount exceeds overdraft limit.
+2024-08-31 19:36:27 INFO  AbstractAccount:40 - 
+The requested amount exceeds your credit limit.
+Current Balance: 2712.0
+Credit Limit: 5000.0
+Difference: 2288.0
+2024-08-31 19:36:27 INFO  CheckingAccount:41 - 
+Insufficient funds. Withdrawal amount exceeds overdraft limit.
