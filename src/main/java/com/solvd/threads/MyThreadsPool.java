@@ -32,54 +32,51 @@ public class MyThreadsPool {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         //Check current Threads
-        getAndCountAllCurrentThreads();
+//        getAndCountAllCurrentThreads();
 
         // Create Pool
         getExecutorService();
-
-        Future<String> future = executorService.submit(() -> {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("Thread id: " + Thread.currentThread().getId()
-                    + " loop: " + 7);
-            return "Callable executes now";
-        });
-
-        //Check current Threads
-        getAndCountAllCurrentThreads();
 
         // Adding 6 task to that pool
         for (int i = 0; i < 6; i++) {
             int counter = i + 1;
             executorService.submit(() -> {
                 try {
-                    Thread.sleep(1000);
+                    System.out.println("Begin of Thread: " + Thread.currentThread().getId()
+                            + " loop: " + counter);
+                    Thread.sleep(5000);
+                    System.out.println("End of Thread id: " + Thread.currentThread().getId()
+                            + " loop: " + counter);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println("Thread id: " + Thread.currentThread().getId()
-                + " loop: " + counter);
+
             });
         }
 
-        //Check current Threads
-        getAndCountAllCurrentThreads();
+        Future<String> future = executorService.submit(() -> {
+            try {
+                System.out.println("Callable Task begins");
+                Thread.sleep(100);
+                System.out.println("Callable Task ends");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return "Callable Result retrieved";
+        });
 
         //This should made wait the main thread to wait until callable is done.
-        System.out.println(future.get());
+        System.out.println("Future return: " + future.get());
 
         executorService.shutdown();
 
         //Check current Threads
-        getAndCountAllCurrentThreads();
+//        getAndCountAllCurrentThreads();
 
         System.out.println("\nTHIS IS THE ------" + Thread.currentThread().getName() + "------ THREAD");
 
         //Check current Threads
-        getAndCountAllCurrentThreads();
+//        getAndCountAllCurrentThreads();
     }
 
 }
