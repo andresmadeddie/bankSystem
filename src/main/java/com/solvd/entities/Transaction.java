@@ -7,8 +7,8 @@ public class Transaction {
     private final LocalDateTime dateTime = LocalDateTime.now();
 
     private static int counter = 0;
-    private String transactionId;
-        private double amount;
+    private final String transactionId;
+    private final double amount;
 
     public Transaction(double amount) {
         this.transactionId = generateTransactionId();

@@ -1,14 +1,18 @@
 package com.solvd;
 
 import com.solvd.entities.*;
-import com.solvd.entities.accounts.BusinessAccount;
-import com.solvd.entities.accounts.CheckingAccount;
-import com.solvd.entities.accounts.CreditCardAccount;
-import com.solvd.entities.accounts.LoanAccount;
-import com.solvd.entities.accounts.SavingsAccount;
+import com.solvd.entities.accounts.*;
 import com.solvd.entities.people.Customer;
 import com.solvd.entities.people.Person;
+import com.solvd.interfaces.functionalinterfaces.IConverter;
+import com.solvd.interfaces.functionalinterfaces.IFinder;
+import com.solvd.interfaces.functionalinterfaces.ITalker;
 import com.solvd.utils.UniqueWorldCounter;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class Main {
     public static void main(String[] args) {
@@ -157,5 +161,44 @@ public class Main {
         System.out.println();
         UniqueWorldCounter.uniqueWordCounter();
         UniqueWorldCounter.uniqueWordCounter2();
+
+        // 5 Lambda from java.utils
+        Predicate<WithdrawalMachine> hasMoney = (withdrawalMachine) -> !withdrawalMachine.listAllBills().isEmpty();
+        System.out.println("\nThe withdrawal machine has money: " + hasMoney.test(machine));
+        Supplier<String> printRandomCustomerName = () -> branch.getCustomerDB().stream()
+                .findAny()
+                .map(c -> c.name)
+                .orElse("NO ONE!!!!   WUAHAHAHAHAH (evil laugh)");
+        System.out.println("And the winner is: " + printRandomCustomerName.get());
+        Consumer<String> printCustomerAddress = (customerName) -> branch.getCustomerDB().stream()
+                .filter(c -> c.name.equals(customerName))
+                .findFirst()
+                .ifPresentOrElse(
+                        c -> System.out.println(c.name + " address: " + c.address),  // Print address if customer is found
+                        () -> System.out.println("Client not in Database")  // Print message if no customer is found
+                );
+        printCustomerAddress.accept("Alice Johnson");
+        Function<String, Branch> getBranchByName = (branchName) -> Bank.branches.values().stream()
+                .filter(b -> b.getBranchName().equals(branchName))
+                .findFirst()
+                .orElse(null);
+        System.out.println("Branch: " + (getBranchByName.apply("Downtown Branch") != null ? getBranchByName.apply("Downtown Branch").getBranchName() : "Not found"));
+        System.out.println("Branch: " + (getBranchByName.apply("No Branch") != null ? getBranchByName.apply("No Branch").getBranchName() : "Not found"));
+
+        // 3 Lambda function with generics
+        IConverter<Double, Float> convertCurrency = (Double amount, Float rate) -> amount * rate * 100;
+        System.out.println("\nCurrency conversion: " + convertCurrency.convert(50.0, 0.25F));
+        ITalker<String> talkRobot = (String something) -> System.out.println(something);
+        talkRobot.talk("Welcome to BankMine, where your money is mine");
+        IFinder<String> findCustomer = (String customerName) ->
+                branch.getCustomerDB().stream()
+                        .filter(c -> c.name.equals(customerName))
+                        .findFirst()
+                        .ifPresentOrElse(
+                                c -> System.out.println("Customer found. \nName: " + customerName + "\nAddress: " + c.address),
+                                () -> System.out.println("No customer found with the name: " + customerName)
+                        );
+        findCustomer.finder("Hannibal");
+        findCustomer.finder(String.valueOf(branch.getCustomerDB().stream().findAny().get().name));
     }
 }

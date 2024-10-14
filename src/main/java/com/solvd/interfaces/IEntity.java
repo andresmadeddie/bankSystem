@@ -1,6 +1,6 @@
 package com.solvd.interfaces;
 
-public interface Entity {
+public interface IEntity {
 
     String toString();
 

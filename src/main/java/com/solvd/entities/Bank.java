@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bank {
-    private static final Map<String, Branch> branches = new HashMap<>();
+    public static final Map<String, Branch> branches = new HashMap<>();
 
     public static void addBranchToBranches(String city, Branch branch) {
         branches.put(city, branch);
