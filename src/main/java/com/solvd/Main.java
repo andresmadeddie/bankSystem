@@ -8,6 +8,8 @@ import com.solvd.enums.*;
 import com.solvd.interfaces.functionalinterfaces.IConverter;
 import com.solvd.interfaces.functionalinterfaces.IFinder;
 import com.solvd.interfaces.functionalinterfaces.ITalker;
+import com.solvd.threads.MyRunnableThread;
+import com.solvd.threads.MyThread;
 import com.solvd.utils.UniqueWorldCounter;
 
 import java.lang.reflect.Field;
@@ -231,7 +233,7 @@ public class Main {
                 "The 7th use can be found at the UniquerWorldCounter class at line 16");
 
         // Reflexion
-        //CLASS
+        // CLASS
         System.out.println("\n--- CLASS ---");
 
         // Initialize classA
@@ -245,28 +247,29 @@ public class Main {
         System.out.println("\n--- Only all methods that belongs to the Branch CLass (exclude inherited method) ---");
         System.out.println(Stream.of(classA.getDeclaredMethods()).map(Method::getName).collect(Collectors.toList()));
 
-        //METHOD
+        // METHOD
         System.out.println("\n--- METHOD ---");
-        //Create new Branch and change its name with reflexion
+        // Create new Branch and change its name with reflexion
         System.out.println("\n--- Create Branch and Change name with reflexion ---");
 
-        //New Branch
-        Branch testBranch = new Branch("Bra102030", "TheOneForTest", "233 Elm Street", "FreddyCity");
-        System.out.println("testBranch Name: " + testBranch.getBranchName());
+        // New library
+        Branch testBranch = new Branch("Bra102030", "TheOneFoTest", "233 Elm Street", "FreddyCity");
+        System.out.println("First Branch Name: " + testBranch.getBranchName());
 
-        //Change the name using the local method with reflexion
-        Method setBranchNameMethod = classA.getDeclaredMethod("setBranchName", String.class);
-        setBranchNameMethod.invoke(testBranch, "NewNameByMETHODReflexion");
+        // Change the name using the local method with reflexion
+        Method setBranchNamemethod = classA.getDeclaredMethod("setBranchName", String.class);
+        setBranchNamemethod.invoke(testBranch, "NewNameByMETHODReflexion");
+
         System.out.println("Renamed by Field Reflexion: " + testBranch.getBranchName());
 
-        //CONSTRUCTOR
+        // CONSTRUCTOR
         System.out.println("\n--- CONSTRUCTOR ---");
         // Get constructors
         System.out.println("\n--- Get constructor ---");
         Stream.of(classA.getConstructors()).map(Constructor -> Arrays.toString(Constructor.getParameterTypes()))
                 .forEach(System.out::println);
 
-        //FIELD
+        // FIELD
         System.out.println("\n--- FIELD ---");
         //Change name by Field reflexion
         System.out.println("\n--- Change name by Field reflexion ---");
@@ -275,5 +278,14 @@ public class Main {
         field.set(testBranch, "NewNameByFIELDReflexion");
         System.out.println("Renamed by Field Reflexion: " + testBranch.getBranchName());
 
+        // THREADS
+        // Extend Thread class
+        MyThread myThread = new MyThread("ThreatExtended");
+        myThread.start();
+        // Implement Runnable
+        MyRunnableThread myRunnableThread = new MyRunnableThread("RunnableImplemented");
+        Thread thread = new Thread(myRunnableThread);
+        thread.start();
+        //Check ConnectionPool and CompletableFuture at the Threads Package
     }
 }
