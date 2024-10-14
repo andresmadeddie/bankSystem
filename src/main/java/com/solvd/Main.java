@@ -3,19 +3,23 @@ package com.solvd;
 import com.solvd.entities.*;
 import com.solvd.entities.accounts.*;
 import com.solvd.entities.people.Customer;
-import com.solvd.entities.people.Person;
+import com.solvd.entities.people.Employee;
+import com.solvd.enums.*;
 import com.solvd.interfaces.functionalinterfaces.IConverter;
 import com.solvd.interfaces.functionalinterfaces.IFinder;
 import com.solvd.interfaces.functionalinterfaces.ITalker;
 import com.solvd.utils.UniqueWorldCounter;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.function.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
         // Create instances of different account types
         BusinessAccount businessAccount = new BusinessAccount("BA123456", 5000.00, "Tech Solutions", "123-456-789");
         CheckingAccount checkingAccount = new CheckingAccount("CA987654", 2000.00, 500.00);
@@ -27,8 +31,8 @@ public class Main {
         Customer customer = new Customer("Alice Johnson", "123 Main St", "CUST001");
         customer.greeting();
         customer.talk();
-        Branch branch = new Branch("BR001", "Downtown Branch", "456 Elm St", "New York");
-        Person bankManager = new Person("John Smith", "789 Oak St");
+        Branch branch = new Branch("BR001", BranchNames.DOWNTOWN_BRANCH.getBranchName(), "456 Elm St", "New York");
+        Employee bankManager = new Employee("John Smith", "789 Oak St", JobPositions.MANAGER.getJobPosition());
 
         // Display initial account details
         System.out.println(branch.getBankName());
@@ -53,51 +57,51 @@ public class Main {
         System.out.println("\nPerforming operations...\n");
 
         // Deposit and withdraw on BusinessAccount
-        businessAccount.deposit(1000.00);
+        businessAccount.deposit(1000.00, branch);
         System.out.println("Business Account after deposit: " + businessAccount);
         customer.pay();
-        businessAccount.withdraw(2000.00);
+        businessAccount.withdraw(2000.00, branch);
         System.out.println("Business Account after withdrawal: " + businessAccount);
         customer.receipt();
 
         // Deposit and withdraw on CheckingAccount
-        checkingAccount.deposit(500.00);
+        checkingAccount.deposit(500.00, branch);
         System.out.println("Checking Account after deposit: " + checkingAccount);
         customer.pay();
-        checkingAccount.withdraw(2500.00);
+        checkingAccount.withdraw(2500.00, branch);
         System.out.println("Checking Account after withdrawal: " + checkingAccount);
         customer.receipt();
 
         // Deposit and withdraw on CreditCardAccount
-        creditCardAccount.deposit(500.00);
+        creditCardAccount.deposit(500.00, branch);
         System.out.println("Credit Card Account after deposit: " + creditCardAccount);
         customer.pay();
-        creditCardAccount.withdraw(1200.00);
+        creditCardAccount.withdraw(1200.00, branch);
         System.out.println("Credit Card Account after withdrawal: " + creditCardAccount);
         customer.receipt();
 
         // Deposit and withdraw on LoanAccount
-        loanAccount.deposit(300.00);
+        loanAccount.deposit(300.00, branch);
         System.out.println("Loan Account after deposit: " + loanAccount);
         customer.pay();
-        loanAccount.withdraw(1500.00);
+        loanAccount.withdraw(1500.00, branch);
         System.out.println("Loan Account after withdrawal: " + loanAccount);
         customer.receipt();
 
         // Deposit and withdraw on SavingsAccount
-        savingsAccount.deposit(200.00);
+        savingsAccount.deposit(200.00, branch);
         System.out.println("Savings Account after deposit: " + savingsAccount);
         customer.pay();
-        savingsAccount.withdraw(500.00);
+        savingsAccount.withdraw(500.00, branch);
         System.out.println("Savings Account after withdrawal: " + savingsAccount);
         customer.receipt();
 
         // Exceptions test
         System.out.println("Exceptions list:");
-        creditCardAccount.withdraw(12);
-        creditCardAccount.withdraw(10000);
-        checkingAccount.withdraw(12);
-        checkingAccount.withdraw(10000);
+        creditCardAccount.withdraw(12, branch);
+        creditCardAccount.withdraw(10000, branch);
+        checkingAccount.withdraw(12, branch);
+        checkingAccount.withdraw(10000, branch);
 
         // Exception with resources
         //CheckReading.readCheck();
@@ -118,13 +122,13 @@ public class Main {
 
         // List
         System.out.println();
-        Branch.getTransactionDB().forEach(System.out::println);
+        branch.getTransactionDB().forEach(System.out::println);
 
         // Map
         System.out.println();
         System.out.println(Bank.getBranchesByCity("New York"));
         System.out.println(Bank.getBranchesByCity("Madrid"));
-        Branch branch2 = new Branch("BR002", "Central Branch", "532 calle Barcelona", "Madrid");
+        Branch branch2 = new Branch("BR002", BranchNames.CENTRAL_BRANCH.getBranchName(), "532 calle Barcelona", "Madrid");
         System.out.println(Bank.getBranchesByCity("Madrid"));
 
         // Queue
@@ -144,7 +148,7 @@ public class Main {
 
         // Dequeue LIFO
         System.out.println();
-        WithdrawalMachine machine = new WithdrawalMachine();
+        WithdrawalMachine machine = new WithdrawalMachine(WithdrawalMachinesNumbers.SN001.getSerialNumber());
         machine.addBill(new Bill("SN123", 20));
         machine.addBill(new Bill("SN124", 20));
         machine.addBill(new Bill("SN125", 20));
@@ -162,7 +166,7 @@ public class Main {
         UniqueWorldCounter.uniqueWordCounter();
         UniqueWorldCounter.uniqueWordCounter2();
 
-        // 5 Lambda from java.utils
+        // 5 Lambda using java.utils
         Predicate<WithdrawalMachine> hasMoney = (withdrawalMachine) -> !withdrawalMachine.listAllBills().isEmpty();
         System.out.println("\nThe withdrawal machine has money: " + hasMoney.test(machine));
         Supplier<String> printRandomCustomerName = () -> branch.getCustomerDB().stream()
@@ -184,8 +188,13 @@ public class Main {
                 .orElse(null);
         System.out.println("Branch: " + (getBranchByName.apply("Downtown Branch") != null ? getBranchByName.apply("Downtown Branch").getBranchName() : "Not found"));
         System.out.println("Branch: " + (getBranchByName.apply("No Branch") != null ? getBranchByName.apply("No Branch").getBranchName() : "Not found"));
+        UnaryOperator<String> countAllTransactionsInBranch = branchId -> String.valueOf((Bank.branches.values().stream()
+                .filter(b -> b.getBranchId().equals(branchId))
+                .mapToInt(b -> b.getTransactionDB().size())
+                .sum()));
+        System.out.println("Number of transaction in branch BR001: " + countAllTransactionsInBranch.apply("BR001"));
 
-        // 3 Lambda function with generics
+        // 3 Lambda function using generics
         IConverter<Double, Float> convertCurrency = (Double amount, Float rate) -> amount * rate * 100;
         System.out.println("\nCurrency conversion: " + convertCurrency.convert(50.0, 0.25F));
         ITalker<String> talkRobot = (String something) -> System.out.println(something);
@@ -200,5 +209,71 @@ public class Main {
                         );
         findCustomer.finder("Hannibal");
         findCustomer.finder(String.valueOf(branch.getCustomerDB().stream().findAny().get().name));
+
+        //ENUMS
+        System.out.println();
+        for (FestiveDays day : FestiveDays.values()) {
+            System.out.println(day.getName() + " is on " + day.getMonth() + " " + day.getDay());
+        }
+        System.out.println(PromotionsNames.LOWCREDITRATE.percentPromo);
+        System.out.println(PromotionsNames.SUPERSAVINGSRATE.percentPromo);
+        WithdrawalMachine machine2 = new WithdrawalMachine(WithdrawalMachinesNumbers.SN001.getSerialNumber());
+        System.out.println(machine2);
+        Employee cashier = new Employee("Bill Gate", "79 windows gated St", JobPositions.CASHIER.getJobPosition());
+        Employee securityGuard = new Employee("Jim Morrison", "2563 Doors St", JobPositions.SECURITY_GUARD.getJobPosition());
+        System.out.println(cashier);
+        System.out.println(securityGuard);
+        Branch anotherBranch = new Branch("BR432432", BranchNames.SOMETHINGELSEBRANCH.getBranchName(), "2345 Under the sea", "Atlantis");
+        System.out.println(anotherBranch);
+
+        // 7 Stream
+        System.out.println("You can find 6 uses of stream on this Main class at lines: \n166, 170, 179, 185, 197, and 205" +
+                "The 7th use can be found at the UniquerWorldCounter class at line 16");
+
+        // Reflexion
+        //CLASS
+        System.out.println("\n--- CLASS ---");
+
+        // Initialize classA
+        Class classA = Class.forName("com.solvd.entities.Branch");
+
+        // Print all public Methods in the Branch Class
+        System.out.println("\n--- All public methods used in the Branch CLass --- ");
+        System.out.println(Stream.of(classA.getMethods()).map(Method::getName).collect(Collectors.toList()));
+
+        // Print only methods that belongs to the Branch Class
+        System.out.println("\n--- Only all methods that belongs to the Branch CLass (exclude inherited method) ---");
+        System.out.println(Stream.of(classA.getDeclaredMethods()).map(Method::getName).collect(Collectors.toList()));
+
+        //METHOD
+        System.out.println("\n--- METHOD ---");
+        //Create new Branch and change its name with reflexion
+        System.out.println("\n--- Create Branch and Change name with reflexion ---");
+
+        //New Branch
+        Branch testBranch = new Branch("Bra102030", "TheOneForTest", "233 Elm Street", "FreddyCity");
+        System.out.println("testBranch Name: " + testBranch.getBranchName());
+
+        //Change the name using the local method with reflexion
+        Method setBranchNameMethod = classA.getDeclaredMethod("setBranchName", String.class);
+        setBranchNameMethod.invoke(testBranch, "NewNameByMETHODReflexion");
+        System.out.println("Renamed by Field Reflexion: " + testBranch.getBranchName());
+
+        //CONSTRUCTOR
+        System.out.println("\n--- CONSTRUCTOR ---");
+        // Get constructors
+        System.out.println("\n--- Get constructor ---");
+        Stream.of(classA.getConstructors()).map(Constructor -> Arrays.toString(Constructor.getParameterTypes()))
+                .forEach(System.out::println);
+
+        //FIELD
+        System.out.println("\n--- FIELD ---");
+        //Change name by Field reflexion
+        System.out.println("\n--- Change name by Field reflexion ---");
+        Field field = classA.getDeclaredField("branchName");
+        field.setAccessible(true);
+        field.set(testBranch, "NewNameByFIELDReflexion");
+        System.out.println("Renamed by Field Reflexion: " + testBranch.getBranchName());
+
     }
 }

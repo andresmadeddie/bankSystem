@@ -1,6 +1,7 @@
 package com.solvd.entities.accounts;
 
 import com.solvd.abstractclasses.AbstractAccount;
+import com.solvd.entities.Branch;
 import com.solvd.entities.Transaction;
 
 import java.time.LocalDateTime;
@@ -15,15 +16,15 @@ public class SavingsAccount extends AbstractAccount {
     }
 
     @Override
-    public void deposit(double amount) {
-        Transaction transaction = new Transaction(amount);
-        setBalance(getBalance() + amount);
+    public void deposit(double amount, Branch branch) {
+        Transaction transaction = new Transaction(amount, branch);
+        setBalance(getBalance() + amount, branch);
     }
 
     @Override
-    public void withdraw(double amount) {
-        Transaction transaction = new Transaction(Math.random() * 100);
-        setBalance(getBalance() - amount);
+    public void withdraw(double amount, Branch branch) {
+        Transaction transaction = new Transaction(Math.random() * 100, branch);
+        setBalance(getBalance() - amount, branch);
     }
 
     @Override

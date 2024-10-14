@@ -10,11 +10,11 @@ public class Transaction {
     private final String transactionId;
     private final double amount;
 
-    public Transaction(double amount) {
+    public Transaction(double amount, Branch branch) {
         this.transactionId = generateTransactionId();
         this.amount = amount;
         // Add to TransactionDB
-        Branch.addToTransactionDB(this);
+        branch.addToTransactionDB(this);
     }
 
     // Generate a new unique transaction ID
