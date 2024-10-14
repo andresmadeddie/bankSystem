@@ -15,11 +15,14 @@ public class CompletableFutureMain {
         Callable<Connection> connectionTask = () -> {
             Connection conn = connectionPool.getConnection();
             System.out.println(Thread.currentThread().getName() + " obtained Connection " + conn.getId());
-            conn.connect();
-            Thread.sleep(2000);
-            conn.close();
-            connectionPool.releaseConnection(conn);
-            System.out.println(Thread.currentThread().getName() + " released Connection " + conn.getId());
+            try {
+                conn.connect();
+                Thread.sleep(2000);
+            } finally {
+                conn.close();
+                connectionPool.releaseConnection(conn);
+                System.out.println(Thread.currentThread().getName() + " released Connection " + conn.getId());
+            }
             return conn;
         };
 

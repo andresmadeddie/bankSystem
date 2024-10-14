@@ -15,7 +15,10 @@ public class MyRunnableThread implements Runnable {
 
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException ignored) {
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Thread interrupted for client: " + clientName);
+                break; // To brake the loop if this happens
             }
         }
     }
